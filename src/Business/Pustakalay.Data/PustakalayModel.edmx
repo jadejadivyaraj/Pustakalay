@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PustakalayModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="PustakalayModelStoreContainer">
+          <EntitySet Name="BookInfo" EntityType="PustakalayModel.Store.BookInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Books" EntityType="PustakalayModel.Store.Books" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Books_BookInfo" Association="PustakalayModel.Store.FK_Books_BookInfo">
+            <End Role="BookInfo" EntitySet="BookInfo" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BookInfo">
+          <Key>
+            <PropertyRef Name="Isbn" />
+          </Key>
+          <Property Name="Isbn" Type="nchar" Nullable="false" MaxLength="13" />
+          <Property Name="Title" Type="varchar" Nullable="false" MaxLength="150" />
+          <Property Name="Author" Type="varchar" Nullable="false" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Books">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Isbn" Type="nchar" MaxLength="13" />
+        </EntityType>
+        <Association Name="FK_Books_BookInfo">
+          <End Role="BookInfo" Type="PustakalayModel.Store.BookInfo" Multiplicity="0..1" />
+          <End Role="Books" Type="PustakalayModel.Store.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookInfo">
+              <PropertyRef Name="Isbn" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="Isbn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="PustakalayModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="PustakalayModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BookInfoes" EntityType="PustakalayModel.BookInfo" />
+          <EntitySet Name="Books" EntityType="PustakalayModel.Book" />
+          <AssociationSet Name="FK_Books_BookInfo" Association="PustakalayModel.FK_Books_BookInfo">
+            <End Role="BookInfo" EntitySet="BookInfoes" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BookInfo">
+          <Key>
+            <PropertyRef Name="Isbn" />
+          </Key>
+          <Property Type="String" Name="Isbn" Nullable="false" MaxLength="13" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Author" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Books" Relationship="PustakalayModel.FK_Books_BookInfo" FromRole="BookInfo" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Isbn" Nullable="true" MaxLength="13" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="BookInfo" Relationship="PustakalayModel.FK_Books_BookInfo" FromRole="Book" ToRole="BookInfo" />
+        </EntityType>
+        <Association Name="FK_Books_BookInfo">
+          <End Type="PustakalayModel.BookInfo" Role="BookInfo" Multiplicity="0..1" />
+          <End Type="PustakalayModel.Book" Role="Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookInfo">
+              <PropertyRef Name="Isbn" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="Isbn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PustakalayModelStoreContainer" CdmEntityContainer="PustakalayModelContainer">
+          <EntitySetMapping Name="BookInfoes">
+            <EntityTypeMapping TypeName="PustakalayModel.BookInfo">
+              <MappingFragment StoreEntitySet="BookInfo">
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Isbn" ColumnName="Isbn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="IsTypeOf(PustakalayModel.Book)">
+              <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="Isbn" ColumnName="Isbn" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="PustakalayModel" >
+        <EntityTypeShape EntityType="PustakalayModel.BookInfo" Width="1.5" PointX="2.625" PointY="0.625" Height="1.787985026041667" />
+        <EntityTypeShape EntityType="PustakalayModel.Book" Width="1.5" PointX="5" PointY="0.625" Height="1.59568359375" />
+        <AssociationConnector Association="PustakalayModel.FK_Books_BookInfo" >
+          <ConnectorPoint PointX="4.125" PointY="1.422841796875" />
+          <ConnectorPoint PointX="5" PointY="1.422841796875" />
+        </AssociationConnector>
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

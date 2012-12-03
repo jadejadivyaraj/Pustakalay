@@ -1,0 +1,13 @@
+﻿<Window x:Class="Pustakalay.Shell"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:Infrastructure="clr-namespace:Pustakalay.Infrastructure;assembly=Pustakalay.Infrastructure" 
+        xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism" 
+        Title="Pustakalay" Height="576" Width="1024">
+    <DockPanel LastChildFill="True" >
+        <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="{x:Static Infrastructure:RegionNames.ToolbarRegion}" />
+        <ContentControl  prism:RegionManager.RegionName="{x:Static Infrastructure:RegionNames.ContentRegion}"/>
+        <ContentControl  DockPanel.Dock="Left" prism:RegionManager.RegionName="{x:Static Infrastructure:RegionNames.NavigationRegion}"/>
+        <ContentControl  DockPanel.Dock="Left" prism:RegionManager.RegionName="{x:Static Infrastructure:RegionNames.SelectionRegion}"/>
+    </DockPanel>
+</Window>
