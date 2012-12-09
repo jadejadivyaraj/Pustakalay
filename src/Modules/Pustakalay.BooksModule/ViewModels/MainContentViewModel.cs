@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using Pustakalay.Data;
@@ -11,7 +12,38 @@ namespace Pustakalay.BooksModule.ViewModels
         public MainContentViewModel()
         {
             Title = "123";
-            test();
+            Initialize();
+        }
+
+        public void Initialize()
+        {
+            using ( PustakalayModelContainer apmc = new PustakalayModelContainer())
+            {
+
+                try
+                {
+                    Book abook = new Book();
+                    abook.Id = Guid.NewGuid();
+                    abook.Title = "TBBT";
+                    abook.Isbn = "1234567";
+                    // abook.BookInfo = BookInfo.CreateBookInfo("123456", "TBBT", "aTBBTAuthor");
+                    apmc.AddToBooks(abook);
+                    apmc.SaveChanges();
+                }
+
+                catch (System.Data.UpdateException e)
+                {
+                    var a = e.InnerException;
+                    if (a.GetType() == typeof(SqlException))
+                    {
+                        //handles DB shits here
+                    }
+                    
+                }
+
+
+                }
+            Title = Books.First().Id.ToString();
         }
 
         private void test()
@@ -23,5 +55,9 @@ namespace Pustakalay.BooksModule.ViewModels
         }
 
         public string Title { get; set; }
+
+        public IList<Book> Books { get; set; }
+
+        
     }
 }

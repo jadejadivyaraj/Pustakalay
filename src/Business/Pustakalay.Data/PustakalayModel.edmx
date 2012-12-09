@@ -6,14 +6,14 @@
     <edmx:StorageModels>
     <Schema Namespace="PustakalayModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="PustakalayModelStoreContainer">
-          <EntitySet Name="BookInfo" EntityType="PustakalayModel.Store.BookInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BookInfoes" EntityType="PustakalayModel.Store.BookInfoes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Books" EntityType="PustakalayModel.Store.Books" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Books_BookInfo" Association="PustakalayModel.Store.FK_Books_BookInfo">
-            <End Role="BookInfo" EntitySet="BookInfo" />
+            <End Role="BookInfoes" EntitySet="BookInfoes" />
             <End Role="Books" EntitySet="Books" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="BookInfo">
+        <EntityType Name="BookInfoes">
           <Key>
             <PropertyRef Name="Isbn" />
           </Key>
@@ -27,12 +27,13 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Isbn" Type="nchar" MaxLength="13" />
+          <Property Name="Title" Type="varchar" MaxLength="150" />
         </EntityType>
         <Association Name="FK_Books_BookInfo">
-          <End Role="BookInfo" Type="PustakalayModel.Store.BookInfo" Multiplicity="0..1" />
+          <End Role="BookInfoes" Type="PustakalayModel.Store.BookInfoes" Multiplicity="0..1" />
           <End Role="Books" Type="PustakalayModel.Store.Books" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="BookInfo">
+            <Principal Role="BookInfoes">
               <PropertyRef Name="Isbn" />
             </Principal>
             <Dependent Role="Books">
@@ -68,6 +69,7 @@
           <Property Type="Guid" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Isbn" Nullable="true" MaxLength="13" Unicode="true" FixedLength="true" />
           <NavigationProperty Name="BookInfo" Relationship="PustakalayModel.FK_Books_BookInfo" FromRole="Book" ToRole="BookInfo" />
+          <Property Type="String" Name="Title" MaxLength="150" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Books_BookInfo">
           <End Type="PustakalayModel.BookInfo" Role="BookInfo" Multiplicity="0..1" />
@@ -87,24 +89,25 @@
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="PustakalayModelStoreContainer" CdmEntityContainer="PustakalayModelContainer">
-          <EntitySetMapping Name="BookInfoes">
-            <EntityTypeMapping TypeName="PustakalayModel.BookInfo">
-              <MappingFragment StoreEntitySet="BookInfo">
-                <ScalarProperty Name="Author" ColumnName="Author" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Isbn" ColumnName="Isbn" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Books">
-            <EntityTypeMapping TypeName="IsTypeOf(PustakalayModel.Book)">
-              <MappingFragment StoreEntitySet="Books">
-                <ScalarProperty Name="Isbn" ColumnName="Isbn" />
+    <EntitySetMapping Name="BookInfoes">
+      <EntityTypeMapping TypeName="IsTypeOf(PustakalayModel.BookInfo)">
+        <MappingFragment StoreEntitySet="BookInfoes">
+          <ScalarProperty Name="Isbn" ColumnName="Isbn" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Books">
+      <EntityTypeMapping TypeName="IsTypeOf(PustakalayModel.Book)">
+        <MappingFragment StoreEntitySet="Books">
+          <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
+          <ScalarProperty Name="Isbn" ColumnName="Isbn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
