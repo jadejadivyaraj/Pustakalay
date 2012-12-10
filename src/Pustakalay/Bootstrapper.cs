@@ -23,13 +23,20 @@ namespace Pustakalay
 
         protected override void ConfigureModuleCatalog()
         {
-            Type moduleAType = typeof(BooksModule.BooksModule);
+            Type LayoutModuleType = typeof(LayoutModule.LayoutModule);
             ModuleCatalog.AddModule(new ModuleInfo()
                                         {
-                                            ModuleName = moduleAType.Name,
-                                            ModuleType = moduleAType.AssemblyQualifiedName,
+                                            ModuleName = LayoutModuleType.Name,
+                                            ModuleType = LayoutModuleType.AssemblyQualifiedName,
                                             InitializationMode = InitializationMode.WhenAvailable
                                         });
+            Type moduleAType = typeof(BooksModule.BooksModule);
+            ModuleCatalog.AddModule(new ModuleInfo()
+            {
+                ModuleName = moduleAType.Name,
+                ModuleType = moduleAType.AssemblyQualifiedName,
+                InitializationMode = InitializationMode.WhenAvailable
+            });
         }
     }
 }

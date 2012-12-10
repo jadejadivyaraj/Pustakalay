@@ -11,26 +11,30 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Pustakalay.BooksModule.ViewModels;
 using Pustakalay.Infrastructure;
+using Pustakalay.LayoutModule.ViewModels;
 
-namespace Pustakalay.BooksModule.Views
+namespace Pustakalay.LayoutModule.Views
 {
     /// <summary>
-    /// Interaction logic for MainContentView.xaml
+    /// Interaction logic for HomeLayoutView.xaml
     /// </summary>
-    public partial class MainContentView : UserControl,IMainContentView
+    public partial class HomeLayoutView : UserControl,IHomeLayoutView
     {
-        public MainContentView(IMainContentViewModel viewModel)
+        public HomeLayoutView(IHomeLayoutViewModel viewModel)
         {
             InitializeComponent();
             ViewModel = viewModel;
         }
 
+        #region Implementation of IView
+
         public IViewModel ViewModel
         {
-            get { return (IMainContentViewModel) DataContext; }
+            get { return (IHomeLayoutViewModel)DataContext; }
             set { DataContext = value; }
         }
+
+        #endregion
     }
 }

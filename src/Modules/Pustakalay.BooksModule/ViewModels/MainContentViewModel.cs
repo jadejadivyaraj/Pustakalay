@@ -7,7 +7,7 @@ using Pustakalay.Data;
 
 namespace Pustakalay.BooksModule.ViewModels
 {
-    class MainContentViewModel : IMainContentViewModel
+    public class MainContentViewModel : IMainContentViewModel
     {
         public MainContentViewModel()
         {
@@ -43,7 +43,7 @@ namespace Pustakalay.BooksModule.ViewModels
 
 
                 }
-            Title = Books.First().Id.ToString();
+            //Title = Books.First().Id.ToString();
         }
 
         private void test()

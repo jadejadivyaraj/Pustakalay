@@ -28,7 +28,7 @@ namespace Pustakalay.BooksModule
         {
             _container.RegisterType<MainContentView>();
             _container.RegisterType<IMainContentViewModel, MainContentViewModel>();
-            _regionManager.RegisterViewWithRegion(RegionNames.ContentRegion, typeof (MainContentView));
+            
         }
     }
 }
