@@ -26,7 +26,9 @@ namespace Pustakalay.LayoutModule
         {
             _container.RegisterType<HomeLayoutView>();
             _container.RegisterType<IHomeLayoutViewModel,HomeLayoutViewModel>();
-            _regionManager.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(HomeLayoutView));
+            _container.RegisterType<HomeView>();
+            _container.RegisterType<IHomeViewModel, HomeViewModel>();
+            _regionManager.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(HomeView));
         }
     }
 }

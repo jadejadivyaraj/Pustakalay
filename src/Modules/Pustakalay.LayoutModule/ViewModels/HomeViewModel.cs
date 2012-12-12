@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Pustakalay.LayoutModule.ViewModels
 {
-    public class HomeLayoutViewModel : IHomeLayoutViewModel
+    public class HomeViewModel:IHomeViewModel
     {
-        public HomeLayoutViewModel()
+        public HomeViewModel()
         {
             
         }
