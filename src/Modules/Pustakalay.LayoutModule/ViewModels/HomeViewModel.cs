@@ -15,20 +15,30 @@ namespace Pustakalay.LayoutModule.ViewModels
 
         private IEventAggregator _aggregator;
 
-        public DelegateCommand<object> NavigateCommand { get; private set; }
-
-        public HomeViewModel(IEventAggregator aggregator )
+        public HomeViewModel(IEventAggregator aggregator)
         {
             _aggregator = aggregator;
             BooksCommand = new DelegateCommand(OnBooksCommand, CanBooksCommandExecute);
-            NavigateCommand = new DelegateCommand<object>(OnNavigateCommand);
-            ApplicationCommands.NavagationCommand.RegisterCommand(NavigateCommand);
+            InventoryCommand = new DelegateCommand(OnInventoryCommand,CanInventoryCommandExecute);
+            //NavigateCommand = new DelegateCommand<object>(OnNavigateCommand);
+            //ApplicationCommands.NavagationCommand.RegisterCommand(NavigateCommand);
         }
 
-        private void OnNavigateCommand(object navigatePath)
+     
+
+        //public DelegateCommand<object> NavigateCommand { get; private set; }
+
+        //private void OnNavigateCommand(object navigatePath)
+        //{
+        //    if (navigatePath!=null)
+        //        _regionManager.RequestNavigate(RegionNames.ContentRegion,navigatePath.ToString());
+        //}
+
+        public DelegateCommand BooksCommand { get; set; }
+
+        private bool CanBooksCommandExecute()
         {
-            if (navigatePath!=null)
-                _regionManager.RequestNavigate(RegionNames.ContentRegion,navigatePath.ToString());
+            return true;
         }
 
         private void OnBooksCommand()
@@ -36,23 +46,17 @@ namespace Pustakalay.LayoutModule.ViewModels
             _aggregator.GetEvent<LayoutChangeEvent>().Publish(LayoutTypes.BooksLayout);
         }
 
-        private bool CanBooksCommandExecute()
+        public DelegateCommand InventoryCommand { get; set; }
+
+        private bool CanInventoryCommandExecute()
         {
             return true;
         }
 
-        public DelegateCommand BooksCommand { get; set; }
-
-        private bool _books;
-        
-        public bool Books
+        private void OnInventoryCommand()
         {
-            get { return _books; }
-            set
-            {
-                _books = value;
-                OnPropertyChanged("Books");
-            }
+            _aggregator.GetEvent<LayoutChangeEvent>().Publish(LayoutTypes.PurchaseBooks);
         }
+
     }
 }

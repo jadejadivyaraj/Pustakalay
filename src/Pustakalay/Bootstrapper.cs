@@ -23,20 +23,28 @@ namespace Pustakalay
 
         protected override void ConfigureModuleCatalog()
         {
-            Type LayoutModuleType = typeof(LayoutModule.LayoutModule);
+            Type layoutModuleType = typeof(LayoutModule.LayoutModule);
             ModuleCatalog.AddModule(new ModuleInfo()
                                         {
-                                            ModuleName = LayoutModuleType.Name,
-                                            ModuleType = LayoutModuleType.AssemblyQualifiedName,
+                                            ModuleName = layoutModuleType.Name,
+                                            ModuleType = layoutModuleType.AssemblyQualifiedName,
                                             InitializationMode = InitializationMode.WhenAvailable
                                         });
-            Type moduleAType = typeof(BooksModule.BooksModule);
-            ModuleCatalog.AddModule(new ModuleInfo()
-            {
-                ModuleName = moduleAType.Name,
-                ModuleType = moduleAType.AssemblyQualifiedName,
-                InitializationMode = InitializationMode.WhenAvailable
-            });
+            Type booksModuleType = typeof(BooksModule.BooksModule);
+                                        ModuleCatalog.AddModule(new ModuleInfo()
+                                        {
+                                            ModuleName = booksModuleType.Name,
+                                            ModuleType = booksModuleType.AssemblyQualifiedName,
+                                            InitializationMode = InitializationMode.WhenAvailable
+                                        });
+            Type inventoryModuleType = typeof(Inventory.InventoryModule);
+                                        ModuleCatalog.AddModule(new ModuleInfo()
+                                        {
+                                            ModuleName = inventoryModuleType.Name,
+                                            ModuleType = inventoryModuleType.AssemblyQualifiedName,
+                                            InitializationMode = InitializationMode.WhenAvailable
+                                        });
+
         }
     }
 }

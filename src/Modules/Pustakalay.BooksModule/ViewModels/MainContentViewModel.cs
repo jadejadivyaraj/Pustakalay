@@ -27,9 +27,10 @@ namespace Pustakalay.BooksModule.ViewModels
                     abook.Id = Guid.NewGuid();
                     abook.Title = "TBBT";
                     abook.Isbn = "1234567";
-                    // abook.BookInfo = BookInfo.CreateBookInfo("123456", "TBBT", "aTBBTAuthor");
+                    abook.BookInfo = BookInfo.CreateBookInfo(new Random().Next(1,999999).ToString(), "TBBT", "aTBBTAuthor");
                     apmc.AddToBooks(abook);
                     apmc.SaveChanges();
+                    Title = abook.Id.ToString()+ " added";
                 }
 
                 catch (System.Data.UpdateException e)
@@ -38,6 +39,7 @@ namespace Pustakalay.BooksModule.ViewModels
                     if (a.GetType() == typeof(SqlException))
                     {
                         //handles DB shits here
+                        Title = e.Message + e.InnerException.Message;
                     }
                     
                 }

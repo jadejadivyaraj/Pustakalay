@@ -92,7 +92,7 @@
         <Ellipse Stroke="Black" Grid.RowSpan="2" Grid.ColumnSpan="2" OpacityMask="Black" Focusable="False" />
         <Button Content="Books"      Template="{DynamicResource GlassButton}" Command="{Binding BooksCommand}"/>
         <Button Content="Members"    Template="{DynamicResource GlassButton}" Grid.Column="1" />
-        <Button Content="Accounts"   Template="{DynamicResource GlassButton}" Grid.Row="1" />
+        <Button Content="Inventory"   Template="{DynamicResource GlassButton}" Grid.Row="1" Command="{Binding InventoryCommand}" />
         <Button Content="Reports"    Template="{DynamicResource GlassButton}" Grid.Column="1" Grid.Row="1" />
     </Grid>
 </UserControl>
