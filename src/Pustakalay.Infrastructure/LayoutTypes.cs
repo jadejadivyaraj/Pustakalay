@@ -8,5 +8,6 @@ namespace Pustakalay.Infrastructure
     public static class LayoutTypes
     {
         public const string BooksLayout = "BooksLayout";
+        public const string PurchaseBooks = "PurchaseBooks";
     }
 }

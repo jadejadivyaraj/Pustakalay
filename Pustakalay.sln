@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pustakalay.BooksModule", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pustakalay.LayoutModule", "src\Modules\Pustakalay.LayoutModule\Pustakalay.LayoutModule.csproj", "{526D58E4-763D-438D-96A9-FC5EC6BF8BDD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pustakalay.Inventory", "src\Modules\Pustakalay.Inventory\Pustakalay.Inventory.csproj", "{55F039EF-D195-44BB-90C0-71AC61AF4AC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,16 @@ Global
 		{526D58E4-763D-438D-96A9-FC5EC6BF8BDD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{526D58E4-763D-438D-96A9-FC5EC6BF8BDD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{526D58E4-763D-438D-96A9-FC5EC6BF8BDD}.Release|x86.ActiveCfg = Release|Any CPU
+		{55F039EF-D195-44BB-90C0-71AC61AF4AC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55F039EF-D195-44BB-90C0-71AC61AF4AC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55F039EF-D195-44BB-90C0-71AC61AF4AC9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{55F039EF-D195-44BB-90C0-71AC61AF4AC9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{55F039EF-D195-44BB-90C0-71AC61AF4AC9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{55F039EF-D195-44BB-90C0-71AC61AF4AC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55F039EF-D195-44BB-90C0-71AC61AF4AC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55F039EF-D195-44BB-90C0-71AC61AF4AC9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{55F039EF-D195-44BB-90C0-71AC61AF4AC9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{55F039EF-D195-44BB-90C0-71AC61AF4AC9}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,5 +95,6 @@ Global
 		{ED5125BA-6829-4514-BCDE-250D3F235BC5} = {0611A648-4EAA-4AB1-A494-98EE0D096483}
 		{DC905EC0-8566-4574-B780-B9853804B1EB} = {9FD91D2B-3337-41F2-BEA2-A8D58ABAB760}
 		{526D58E4-763D-438D-96A9-FC5EC6BF8BDD} = {9FD91D2B-3337-41F2-BEA2-A8D58ABAB760}
+		{55F039EF-D195-44BB-90C0-71AC61AF4AC9} = {9FD91D2B-3337-41F2-BEA2-A8D58ABAB760}
 	EndGlobalSection
 EndGlobal

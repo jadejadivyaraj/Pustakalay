@@ -18,7 +18,11 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("PustakalayModel", "FK_Books_BookInfo", "BookInfo", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Pustakalay.Data.BookInfo), "Book", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Pustakalay.Data.Book), true)]
+[assembly: EdmRelationshipAttribute("PustakalayModel", "FK_BookInfoBook", "BookInfo", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Pustakalay.Data.BookInfo), "Book", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Pustakalay.Data.Book), true)]
+[assembly: EdmRelationshipAttribute("PustakalayModel", "FK_Books_Purchases", "Purchase", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Pustakalay.Data.Purchase), "Book", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Pustakalay.Data.Book), true)]
+[assembly: EdmRelationshipAttribute("PustakalayModel", "FK_PurchaseDetails_Books", "Book", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Pustakalay.Data.Book), "PurchaseDetail", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Pustakalay.Data.PurchaseDetail), true)]
+[assembly: EdmRelationshipAttribute("PustakalayModel", "FK_PurchaseDetails_Purchases", "Purchase", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Pustakalay.Data.Purchase), "PurchaseDetail", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Pustakalay.Data.PurchaseDetail), true)]
+[assembly: EdmRelationshipAttribute("PustakalayModel", "FK_PurchaseDetails_Suppliers", "Supplier", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Pustakalay.Data.Supplier), "PurchaseDetail", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Pustakalay.Data.PurchaseDetail), true)]
 
 #endregion
 
@@ -101,6 +105,54 @@ namespace Pustakalay.Data
             }
         }
         private ObjectSet<Book> _Books;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PurchaseDetail> PurchaseDetails
+        {
+            get
+            {
+                if ((_PurchaseDetails == null))
+                {
+                    _PurchaseDetails = base.CreateObjectSet<PurchaseDetail>("PurchaseDetails");
+                }
+                return _PurchaseDetails;
+            }
+        }
+        private ObjectSet<PurchaseDetail> _PurchaseDetails;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Purchase> Purchases
+        {
+            get
+            {
+                if ((_Purchases == null))
+                {
+                    _Purchases = base.CreateObjectSet<Purchase>("Purchases");
+                }
+                return _Purchases;
+            }
+        }
+        private ObjectSet<Purchase> _Purchases;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Supplier> Suppliers
+        {
+            get
+            {
+                if ((_Suppliers == null))
+                {
+                    _Suppliers = base.CreateObjectSet<Supplier>("Suppliers");
+                }
+                return _Suppliers;
+            }
+        }
+        private ObjectSet<Supplier> _Suppliers;
 
         #endregion
         #region AddTo Methods
@@ -119,6 +171,30 @@ namespace Pustakalay.Data
         public void AddToBooks(Book book)
         {
             base.AddObject("Books", book);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PurchaseDetails EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPurchaseDetails(PurchaseDetail purchaseDetail)
+        {
+            base.AddObject("PurchaseDetails", purchaseDetail);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Purchases EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPurchases(Purchase purchase)
+        {
+            base.AddObject("Purchases", purchase);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Suppliers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSuppliers(Supplier supplier)
+        {
+            base.AddObject("Suppliers", supplier);
         }
 
         #endregion
@@ -143,10 +219,12 @@ namespace Pustakalay.Data
         /// Create a new Book object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        public static Book CreateBook(global::System.Guid id)
+        /// <param name="purchaseId">Initial value of the PurchaseId property.</param>
+        public static Book CreateBook(global::System.Guid id, global::System.Guid purchaseId)
         {
             Book book = new Book();
             book.Id = id;
+            book.PurchaseId = purchaseId;
             return book;
         }
 
@@ -207,26 +285,26 @@ namespace Pustakalay.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String Title
+        public global::System.Guid PurchaseId
         {
             get
             {
-                return _Title;
+                return _PurchaseId;
             }
             set
             {
-                OnTitleChanging(value);
-                ReportPropertyChanging("Title");
-                _Title = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Title");
-                OnTitleChanged();
+                OnPurchaseIdChanging(value);
+                ReportPropertyChanging("PurchaseId");
+                _PurchaseId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PurchaseId");
+                OnPurchaseIdChanged();
             }
         }
-        private global::System.String _Title;
-        partial void OnTitleChanging(global::System.String value);
-        partial void OnTitleChanged();
+        private global::System.Guid _PurchaseId;
+        partial void OnPurchaseIdChanging(global::System.Guid value);
+        partial void OnPurchaseIdChanged();
 
         #endregion
     
@@ -238,16 +316,16 @@ namespace Pustakalay.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("PustakalayModel", "FK_Books_BookInfo", "BookInfo")]
+        [EdmRelationshipNavigationPropertyAttribute("PustakalayModel", "FK_BookInfoBook", "BookInfo")]
         public BookInfo BookInfo
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BookInfo>("PustakalayModel.FK_Books_BookInfo", "BookInfo").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BookInfo>("PustakalayModel.FK_BookInfoBook", "BookInfo").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BookInfo>("PustakalayModel.FK_Books_BookInfo", "BookInfo").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BookInfo>("PustakalayModel.FK_BookInfoBook", "BookInfo").Value = value;
             }
         }
         /// <summary>
@@ -259,13 +337,73 @@ namespace Pustakalay.Data
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BookInfo>("PustakalayModel.FK_Books_BookInfo", "BookInfo");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BookInfo>("PustakalayModel.FK_BookInfoBook", "BookInfo");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BookInfo>("PustakalayModel.FK_Books_BookInfo", "BookInfo", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BookInfo>("PustakalayModel.FK_BookInfoBook", "BookInfo", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("PustakalayModel", "FK_Books_Purchases", "Purchase")]
+        public Purchase Purchase
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Purchase>("PustakalayModel.FK_Books_Purchases", "Purchase").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Purchase>("PustakalayModel.FK_Books_Purchases", "Purchase").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Purchase> PurchaseReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Purchase>("PustakalayModel.FK_Books_Purchases", "Purchase");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Purchase>("PustakalayModel.FK_Books_Purchases", "Purchase", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("PustakalayModel", "FK_PurchaseDetails_Books", "PurchaseDetail")]
+        public EntityCollection<PurchaseDetail> PurchaseDetails
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PurchaseDetail>("PustakalayModel.FK_PurchaseDetails_Books", "PurchaseDetail");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PurchaseDetail>("PustakalayModel.FK_PurchaseDetails_Books", "PurchaseDetail", value);
                 }
             }
         }
@@ -386,18 +524,456 @@ namespace Pustakalay.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("PustakalayModel", "FK_Books_BookInfo", "Book")]
+        [EdmRelationshipNavigationPropertyAttribute("PustakalayModel", "FK_BookInfoBook", "Book")]
         public EntityCollection<Book> Books
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Book>("PustakalayModel.FK_Books_BookInfo", "Book");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Book>("PustakalayModel.FK_BookInfoBook", "Book");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Book>("PustakalayModel.FK_Books_BookInfo", "Book", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Book>("PustakalayModel.FK_BookInfoBook", "Book", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="PustakalayModel", Name="Purchase")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Purchase : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Purchase object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="supplierId">Initial value of the SupplierId property.</param>
+        public static Purchase CreatePurchase(global::System.Guid id, global::System.Guid supplierId)
+        {
+            Purchase purchase = new Purchase();
+            purchase.Id = id;
+            purchase.SupplierId = supplierId;
+            return purchase;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid SupplierId
+        {
+            get
+            {
+                return _SupplierId;
+            }
+            set
+            {
+                OnSupplierIdChanging(value);
+                ReportPropertyChanging("SupplierId");
+                _SupplierId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SupplierId");
+                OnSupplierIdChanged();
+            }
+        }
+        private global::System.Guid _SupplierId;
+        partial void OnSupplierIdChanging(global::System.Guid value);
+        partial void OnSupplierIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("PustakalayModel", "FK_Books_Purchases", "Book")]
+        public EntityCollection<Book> Books
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Book>("PustakalayModel.FK_Books_Purchases", "Book");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Book>("PustakalayModel.FK_Books_Purchases", "Book", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("PustakalayModel", "FK_PurchaseDetails_Purchases", "PurchaseDetail")]
+        public EntityCollection<PurchaseDetail> PurchaseDetails
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PurchaseDetail>("PustakalayModel.FK_PurchaseDetails_Purchases", "PurchaseDetail");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PurchaseDetail>("PustakalayModel.FK_PurchaseDetails_Purchases", "PurchaseDetail", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="PustakalayModel", Name="PurchaseDetail")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PurchaseDetail : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new PurchaseDetail object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="bookId">Initial value of the BookId property.</param>
+        /// <param name="supplierId">Initial value of the SupplierId property.</param>
+        public static PurchaseDetail CreatePurchaseDetail(global::System.Guid id, global::System.Guid bookId, global::System.Guid supplierId)
+        {
+            PurchaseDetail purchaseDetail = new PurchaseDetail();
+            purchaseDetail.Id = id;
+            purchaseDetail.BookId = bookId;
+            purchaseDetail.SupplierId = supplierId;
+            return purchaseDetail;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid BookId
+        {
+            get
+            {
+                return _BookId;
+            }
+            set
+            {
+                if (_BookId != value)
+                {
+                    OnBookIdChanging(value);
+                    ReportPropertyChanging("BookId");
+                    _BookId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("BookId");
+                    OnBookIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _BookId;
+        partial void OnBookIdChanging(global::System.Guid value);
+        partial void OnBookIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid SupplierId
+        {
+            get
+            {
+                return _SupplierId;
+            }
+            set
+            {
+                if (_SupplierId != value)
+                {
+                    OnSupplierIdChanging(value);
+                    ReportPropertyChanging("SupplierId");
+                    _SupplierId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("SupplierId");
+                    OnSupplierIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _SupplierId;
+        partial void OnSupplierIdChanging(global::System.Guid value);
+        partial void OnSupplierIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("PustakalayModel", "FK_PurchaseDetails_Books", "Book")]
+        public Book Book
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Book>("PustakalayModel.FK_PurchaseDetails_Books", "Book").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Book>("PustakalayModel.FK_PurchaseDetails_Books", "Book").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Book> BookReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Book>("PustakalayModel.FK_PurchaseDetails_Books", "Book");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Book>("PustakalayModel.FK_PurchaseDetails_Books", "Book", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("PustakalayModel", "FK_PurchaseDetails_Purchases", "Purchase")]
+        public Purchase Purchase
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Purchase>("PustakalayModel.FK_PurchaseDetails_Purchases", "Purchase").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Purchase>("PustakalayModel.FK_PurchaseDetails_Purchases", "Purchase").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Purchase> PurchaseReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Purchase>("PustakalayModel.FK_PurchaseDetails_Purchases", "Purchase");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Purchase>("PustakalayModel.FK_PurchaseDetails_Purchases", "Purchase", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("PustakalayModel", "FK_PurchaseDetails_Suppliers", "Supplier")]
+        public Supplier Supplier
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Supplier>("PustakalayModel.FK_PurchaseDetails_Suppliers", "Supplier").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Supplier>("PustakalayModel.FK_PurchaseDetails_Suppliers", "Supplier").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Supplier> SupplierReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Supplier>("PustakalayModel.FK_PurchaseDetails_Suppliers", "Supplier");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Supplier>("PustakalayModel.FK_PurchaseDetails_Suppliers", "Supplier", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="PustakalayModel", Name="Supplier")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Supplier : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Supplier object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        public static Supplier CreateSupplier(global::System.Guid id)
+        {
+            Supplier supplier = new Supplier();
+            supplier.Id = id;
+            return supplier;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("PustakalayModel", "FK_PurchaseDetails_Suppliers", "PurchaseDetail")]
+        public EntityCollection<PurchaseDetail> PurchaseDetails
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PurchaseDetail>("PustakalayModel.FK_PurchaseDetails_Suppliers", "PurchaseDetail");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PurchaseDetail>("PustakalayModel.FK_PurchaseDetails_Suppliers", "PurchaseDetail", value);
                 }
             }
         }

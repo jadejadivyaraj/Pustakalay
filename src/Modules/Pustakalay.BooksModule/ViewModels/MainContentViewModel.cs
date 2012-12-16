@@ -23,13 +23,30 @@ namespace Pustakalay.BooksModule.ViewModels
 
                 try
                 {
-                    Book abook = new Book();
-                    abook.Id = Guid.NewGuid();
-                    abook.Title = "TBBT";
-                    abook.Isbn = "1234567";
-                    // abook.BookInfo = BookInfo.CreateBookInfo("123456", "TBBT", "aTBBTAuthor");
+                    Supplier aS = Supplier.CreateSupplier(Guid.NewGuid());
+                    apmc.AddToSuppliers(aS);
+                    apmc.SaveChanges();
+                    Purchase aP = Purchase.CreatePurchase(Guid.NewGuid(), aS.Id);
+                    apmc.AddToPurchases(aP);
+                    apmc.SaveChanges();
+                    Book abook = Book.CreateBook(Guid.NewGuid(), aP.Id);
                     apmc.AddToBooks(abook);
                     apmc.SaveChanges();
+                    BookInfo bookInfo = BookInfo.CreateBookInfo(new Random().Next(1, 999999).ToString(),"Harry Potter","Jadeja");
+                    apmc.AddToBookInfoes(bookInfo);
+                    abook.Isbn = bookInfo.Isbn;
+                    apmc.SaveChanges();
+                    PurchaseDetail apd = new PurchaseDetail();
+                    apd.BookId = abook.Id;
+                    apd.Id = aP.Id;
+                    apd.SupplierId = aS.Id;
+                    apmc.PurchaseDetails.AddObject(apd);
+                    apmc.SaveChanges();
+                    //abook.BookInfo = bookInfo;
+                    //abook.PurchaseDetails.Add(aPD);
+                    //apmc.Books.AddObject(abook);
+                    //apmc.SaveChanges();
+                    Title = abook.Id.ToString()+ " added";
                 }
 
                 catch (System.Data.UpdateException e)
@@ -38,6 +55,7 @@ namespace Pustakalay.BooksModule.ViewModels
                     if (a.GetType() == typeof(SqlException))
                     {
                         //handles DB shits here
+                        Title = e.Message + e.InnerException.Message;
                     }
                     
                 }
