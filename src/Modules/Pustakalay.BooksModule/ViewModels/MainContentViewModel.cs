@@ -4,10 +4,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using Pustakalay.Data;
+using Pustakalay.Infrastructure;
 
 namespace Pustakalay.BooksModule.ViewModels
 {
-    public class MainContentViewModel : IMainContentViewModel
+    public class MainContentViewModel :ViewModelBase, IMainContentViewModel
     {
         public MainContentViewModel()
         {

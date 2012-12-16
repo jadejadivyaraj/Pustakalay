@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Unity;
@@ -16,19 +17,26 @@ namespace Pustakalay.BooksModule
     {
         private IUnityContainer _container;
         private IRegionManager _regionManager;
-
-        public BooksModule(IUnityContainer container, IRegionManager regionManager)
+        private IEventAggregator _aggregator;
+        public BooksModule(IUnityContainer container, IRegionManager regionManager, IEventAggregator aggregator)
         {
             _container = container;
+            _aggregator = aggregator;
             _regionManager = regionManager;
         }
 
 
         public void Initialize()
         {
-            _container.RegisterType<MainContentView>();
+            _container.RegisterType<object, MainContentView>(typeof(MainContentView).FullName);
             _container.RegisterType<IMainContentViewModel, MainContentViewModel>();
-            
+            _aggregator.GetEvent<LayoutChangeEvent>().Subscribe(OnLayoutChangeRequest);
+        }
+
+        private void OnLayoutChangeRequest(string obj)
+        {
+            if (LayoutTypes.BooksLayout.Equals(obj, StringComparison.Ordinal)) 
+                _regionManager.RequestNavigate(RegionNames.ContentRegion,typeof(MainContentView).FullName);
         }
     }
 }

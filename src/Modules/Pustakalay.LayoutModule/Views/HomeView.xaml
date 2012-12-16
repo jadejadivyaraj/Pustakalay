@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="900" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+             d:DesignHeight="309" d:DesignWidth="600"  Background="White">
     <UserControl.Resources>
         <ControlTemplate x:Key="GlassButton" TargetType="{x:Type Button}">
             <ControlTemplate.Resources>
@@ -70,8 +70,11 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="FontSize" Value="32pt"></Setter>
+        </Style>
     </UserControl.Resources>
-    <Grid >
+    <Grid MinWidth="600" MinHeight="300" >
         <Grid.Background>
             <RadialGradientBrush>
                 <GradientStop Color="White" Offset="0" />
@@ -79,24 +82,17 @@
             </RadialGradientBrush>
         </Grid.Background>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="450*" />
-            <ColumnDefinition Width="450*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="300*" />
-            <RowDefinition Height="300*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Ellipse Name="ellipse1" Stroke="Black" Grid.RowSpan="2" Grid.ColumnSpan="2" OpacityMask="Black">
-            <Ellipse.Fill>
-                <RadialGradientBrush>
-                    <GradientStop Color="Black" Offset="0" />
-                    <GradientStop Color="White" Offset="1" />
-                </RadialGradientBrush>
-            </Ellipse.Fill>
-        </Ellipse>
-        <Button Content="Button" Height="50"  Margin="0,0,100,100" Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Right"  Template="{DynamicResource GlassButton}" />
-        <Button Content="Button" Height="50"  Margin="100,0,0,100" Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Template="{DynamicResource GlassButton}" Grid.Column="1" />
-        <Button Content="Button" Height="50"  Margin="0,100,100,0" Width="100" VerticalAlignment="Top" HorizontalAlignment="Right"  Template="{DynamicResource GlassButton}" Grid.Row="1" />
-        <Button Content="Button" Height="50"  Margin="100,100,0,0" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left"  Template="{DynamicResource GlassButton}" Grid.Column="1" Grid.Row="1" />
+        <Ellipse Stroke="Black" Grid.RowSpan="2" Grid.ColumnSpan="2" OpacityMask="Black" Focusable="False" />
+        <Button Content="Books"      Template="{DynamicResource GlassButton}" Command="{Binding BooksCommand}"/>
+        <Button Content="Members"    Template="{DynamicResource GlassButton}" Grid.Column="1" />
+        <Button Content="Accounts"   Template="{DynamicResource GlassButton}" Grid.Row="1" />
+        <Button Content="Reports"    Template="{DynamicResource GlassButton}" Grid.Column="1" Grid.Row="1" />
     </Grid>
 </UserControl>

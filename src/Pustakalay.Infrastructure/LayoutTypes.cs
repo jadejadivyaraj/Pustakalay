@@ -5,7 +5,8 @@ using System.Text;
 
 namespace Pustakalay.Infrastructure
 {
-    public interface IBookRepository<T>:IRepository<T>
+    public static class LayoutTypes
     {
+        public const string BooksLayout = "BooksLayout";
     }
 }
