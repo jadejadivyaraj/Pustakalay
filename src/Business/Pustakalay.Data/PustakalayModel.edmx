@@ -8,13 +8,7 @@
         <EntityContainer Name="PustakalayModelStoreContainer">
           <EntitySet Name="BookInfoes" EntityType="PustakalayModel.Store.BookInfoes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Books" EntityType="PustakalayModel.Store.Books" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PurchaseDetails" EntityType="PustakalayModel.Store.PurchaseDetails" store:Type="Tables" store:Schema="dbo" store:Name="PurchaseDetails">
-            <DefiningQuery>SELECT 
-      [PurchaseDetails].[Id] AS [Id], 
-      [PurchaseDetails].[BookId] AS [BookId], 
-      [PurchaseDetails].[SupplierId] AS [SupplierId]
-      FROM [dbo].[PurchaseDetails] AS [PurchaseDetails]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="PurchaseDetails" EntityType="PustakalayModel.Store.PurchaseDetails" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Purchases" EntityType="PustakalayModel.Store.Purchases" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Suppliers" EntityType="PustakalayModel.Store.Suppliers" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_BookInfoBook" Association="PustakalayModel.Store.FK_BookInfoBook">
@@ -54,15 +48,11 @@
           <Property Name="Isbn" Type="nchar" MaxLength="13" />
           <Property Name="PurchaseId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'Pustakalay.dbo.PurchaseDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="PurchaseDetails">
           <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="BookId" />
-            <PropertyRef Name="SupplierId" />
+            <PropertyRef Name="tmpid" />
           </Key>
+          <Property Name="tmpid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="BookId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="SupplierId" Type="uniqueidentifier" Nullable="false" />
@@ -193,9 +183,7 @@
         </EntityType>
         <EntityType Name="PurchaseDetail">
           <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="BookId" />
-            <PropertyRef Name="SupplierId" />
+            <PropertyRef Name="tmpid" />
           </Key>
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Guid" Name="BookId" Nullable="false" />
@@ -203,6 +191,7 @@
           <NavigationProperty Name="Book" Relationship="PustakalayModel.FK_PurchaseDetails_Books" FromRole="PurchaseDetail" ToRole="Book" />
           <NavigationProperty Name="Purchase" Relationship="PustakalayModel.FK_PurchaseDetails_Purchases" FromRole="PurchaseDetail" ToRole="Purchase" />
           <NavigationProperty Name="Supplier" Relationship="PustakalayModel.FK_PurchaseDetails_Suppliers" FromRole="PurchaseDetail" ToRole="Supplier" />
+          <Property Type="Guid" Name="tmpid" Nullable="false" />
         </EntityType>
         <EntityType Name="Purchase">
           <Key>
@@ -307,6 +296,7 @@
           <EntitySetMapping Name="PurchaseDetails">
             <EntityTypeMapping TypeName="PustakalayModel.PurchaseDetail">
               <MappingFragment StoreEntitySet="PurchaseDetails">
+                <ScalarProperty Name="tmpid" ColumnName="tmpid" />
                 <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
                 <ScalarProperty Name="BookId" ColumnName="BookId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -351,7 +341,7 @@
       <Diagram Name="PustakalayModel" >
         <EntityTypeShape EntityType="PustakalayModel.BookInfo" Width="1.5" PointX="0.875" PointY="1.125" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="PustakalayModel.Book" Width="1.5" PointX="3" PointY="0.875" Height="2.1725878906249996" />
-        <EntityTypeShape EntityType="PustakalayModel.PurchaseDetail" Width="1.5" PointX="5.25" PointY="0.875" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="PustakalayModel.PurchaseDetail" Width="1.5" PointX="5.25" PointY="0.875" Height="2.364889322916667" />
         <EntityTypeShape EntityType="PustakalayModel.Purchase" Width="1.5" PointX="6.75" PointY="3.375" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="PustakalayModel.Supplier" Width="1.5" PointX="8.375" PointY="1" Height="1.4033821614583317" />
         <AssociationConnector Association="PustakalayModel.FK_BookInfoBook" >
@@ -369,8 +359,8 @@
         </AssociationConnector>
         <AssociationConnector Association="PustakalayModel.FK_PurchaseDetails_Purchases" >
           <ConnectorPoint PointX="7.5000005000000005" PointY="3.375" />
-          <ConnectorPoint PointX="7.5000005000000005" PointY="2.4058914856770834" />
-          <ConnectorPoint PointX="6.75" PointY="2.4058914856770834" />
+          <ConnectorPoint PointX="7.5000005000000005" PointY="2.4707897018229166" />
+          <ConnectorPoint PointX="6.75" PointY="2.4707897018229166" />
         </AssociationConnector>
         <AssociationConnector Association="PustakalayModel.FK_PurchaseDetails_Suppliers" >
           <ConnectorPoint PointX="8.375" PointY="1.7016910807291659" />

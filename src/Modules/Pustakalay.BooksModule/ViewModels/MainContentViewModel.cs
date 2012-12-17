@@ -36,11 +36,13 @@ namespace Pustakalay.BooksModule.ViewModels
                     apmc.AddToBookInfoes(bookInfo);
                     abook.Isbn = bookInfo.Isbn;
                     apmc.SaveChanges();
-                    PurchaseDetail apd = new PurchaseDetail();
-                    apd.BookId = abook.Id;
-                    apd.Id = aP.Id;
-                    apd.SupplierId = aS.Id;
-                    apmc.PurchaseDetails.AddObject(apd);
+                    PurchaseDetail apd = PurchaseDetail.CreatePurchaseDetail(aP.Id, abook.Id, aS.Id,Guid.NewGuid());
+                    apmc.AddToPurchaseDetails(apd);
+                    //PurchaseDetail apd = new PurchaseDetail();
+                    //apd.BookId = abook.Id;
+                    //apd.Id = aP.Id;
+                    //apd.SupplierId = aS.Id;
+                    //apmc.PurchaseDetails.AddObject(apd);
                     apmc.SaveChanges();
                     //abook.BookInfo = bookInfo;
                     //abook.PurchaseDetails.Add(aPD);

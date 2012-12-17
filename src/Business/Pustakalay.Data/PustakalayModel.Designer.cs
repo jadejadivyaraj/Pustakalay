@@ -687,12 +687,14 @@ namespace Pustakalay.Data
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="bookId">Initial value of the BookId property.</param>
         /// <param name="supplierId">Initial value of the SupplierId property.</param>
-        public static PurchaseDetail CreatePurchaseDetail(global::System.Guid id, global::System.Guid bookId, global::System.Guid supplierId)
+        /// <param name="tmpid">Initial value of the tmpid property.</param>
+        public static PurchaseDetail CreatePurchaseDetail(global::System.Guid id, global::System.Guid bookId, global::System.Guid supplierId, global::System.Guid tmpid)
         {
             PurchaseDetail purchaseDetail = new PurchaseDetail();
             purchaseDetail.Id = id;
             purchaseDetail.BookId = bookId;
             purchaseDetail.SupplierId = supplierId;
+            purchaseDetail.tmpid = tmpid;
             return purchaseDetail;
         }
 
@@ -702,7 +704,7 @@ namespace Pustakalay.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Guid Id
         {
@@ -712,14 +714,11 @@ namespace Pustakalay.Data
             }
             set
             {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
+                OnIdChanging(value);
+                ReportPropertyChanging("Id");
+                _Id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Id");
+                OnIdChanged();
             }
         }
         private global::System.Guid _Id;
@@ -729,7 +728,7 @@ namespace Pustakalay.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Guid BookId
         {
@@ -739,14 +738,11 @@ namespace Pustakalay.Data
             }
             set
             {
-                if (_BookId != value)
-                {
-                    OnBookIdChanging(value);
-                    ReportPropertyChanging("BookId");
-                    _BookId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("BookId");
-                    OnBookIdChanged();
-                }
+                OnBookIdChanging(value);
+                ReportPropertyChanging("BookId");
+                _BookId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BookId");
+                OnBookIdChanged();
             }
         }
         private global::System.Guid _BookId;
@@ -756,7 +752,7 @@ namespace Pustakalay.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Guid SupplierId
         {
@@ -766,19 +762,43 @@ namespace Pustakalay.Data
             }
             set
             {
-                if (_SupplierId != value)
-                {
-                    OnSupplierIdChanging(value);
-                    ReportPropertyChanging("SupplierId");
-                    _SupplierId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("SupplierId");
-                    OnSupplierIdChanged();
-                }
+                OnSupplierIdChanging(value);
+                ReportPropertyChanging("SupplierId");
+                _SupplierId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SupplierId");
+                OnSupplierIdChanged();
             }
         }
         private global::System.Guid _SupplierId;
         partial void OnSupplierIdChanging(global::System.Guid value);
         partial void OnSupplierIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid tmpid
+        {
+            get
+            {
+                return _tmpid;
+            }
+            set
+            {
+                if (_tmpid != value)
+                {
+                    OntmpidChanging(value);
+                    ReportPropertyChanging("tmpid");
+                    _tmpid = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("tmpid");
+                    OntmpidChanged();
+                }
+            }
+        }
+        private global::System.Guid _tmpid;
+        partial void OntmpidChanging(global::System.Guid value);
+        partial void OntmpidChanged();
 
         #endregion
     
