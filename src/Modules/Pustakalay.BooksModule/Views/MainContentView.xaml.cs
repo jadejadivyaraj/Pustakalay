@@ -21,6 +21,7 @@ namespace Pustakalay.BooksModule.Views
     /// </summary>
     public partial class MainContentView : UserControl,IMainContentView
     {
+        
         public MainContentView(IMainContentViewModel viewModel)
         {
             InitializeComponent();
@@ -32,5 +33,10 @@ namespace Pustakalay.BooksModule.Views
             get { return (IMainContentViewModel) DataContext; }
             set { DataContext = value; }
         }
+
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+            
+        //}
     }
 }

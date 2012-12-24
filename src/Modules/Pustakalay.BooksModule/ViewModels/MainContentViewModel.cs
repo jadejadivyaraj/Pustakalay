@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -8,21 +10,23 @@ using Pustakalay.Infrastructure;
 
 namespace Pustakalay.BooksModule.ViewModels
 {
-    public class MainContentViewModel :ViewModelBase, IMainContentViewModel
+    public class MainContentViewModel : ViewModelBase, IMainContentViewModel 
     {
         public MainContentViewModel()
         {
             Title = "123";
             Initialize();
+           // test();
         }
 
         public void Initialize()
         {
-            using ( PustakalayModelContainer apmc = new PustakalayModelContainer())
+         //   using ( PustakalayModelContainer apmc = new PustakalayModelContainer())
             {
 
                 try
                 {
+                    PustakalayModelContainer apmc = new PustakalayModelContainer();
                     Supplier aS = Supplier.CreateSupplier(Guid.NewGuid());
                     apmc.AddToSuppliers(aS);
                     apmc.SaveChanges();
@@ -38,17 +42,19 @@ namespace Pustakalay.BooksModule.ViewModels
                     apmc.SaveChanges();
                     PurchaseDetail apd = PurchaseDetail.CreatePurchaseDetail(aP.Id, abook.Id, aS.Id,Guid.NewGuid());
                     apmc.AddToPurchaseDetails(apd);
+                    Books = apmc.Books.ToList();
                     //PurchaseDetail apd = new PurchaseDetail();
                     //apd.BookId = abook.Id;
                     //apd.Id = aP.Id;
                     //apd.SupplierId = aS.Id;
                     //apmc.PurchaseDetails.AddObject(apd);
-                    apmc.SaveChanges();
+                  //  apmc.SaveChanges();
                     //abook.BookInfo = bookInfo;
                     //abook.PurchaseDetails.Add(aPD);
                     //apmc.Books.AddObject(abook);
                     //apmc.SaveChanges();
                     Title = abook.Id.ToString()+ " added";
+                    Books = apmc.Books.ToList();
                 }
 
                 catch (System.Data.UpdateException e)
@@ -69,15 +75,20 @@ namespace Pustakalay.BooksModule.ViewModels
 
         private void test()
         {
-            PustakalayModelContainer apmc = new PustakalayModelContainer();
-            Book abook = new Book(){Id = Guid.NewGuid()};
-            apmc.Books.AddObject(abook);
-            Title = abook.Id.ToString();
+            using(PustakalayModelContainer apmc = new PustakalayModelContainer())
+            {
+                var ab=apmc.Books;
+               // Books = apmc.Books.local; ;
+
+            }
+
         }
 
         public string Title { get; set; }
 
         public IList<Book> Books { get; set; }
+
+        
 
         
     }

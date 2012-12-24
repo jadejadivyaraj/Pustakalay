@@ -185,13 +185,13 @@
           <Key>
             <PropertyRef Name="tmpid" />
           </Key>
+          <Property Type="Guid" Name="tmpid" Nullable="false" />
           <Property Type="Guid" Name="Id" Nullable="false" />
           <Property Type="Guid" Name="BookId" Nullable="false" />
           <Property Type="Guid" Name="SupplierId" Nullable="false" />
           <NavigationProperty Name="Book" Relationship="PustakalayModel.FK_PurchaseDetails_Books" FromRole="PurchaseDetail" ToRole="Book" />
           <NavigationProperty Name="Purchase" Relationship="PustakalayModel.FK_PurchaseDetails_Purchases" FromRole="PurchaseDetail" ToRole="Purchase" />
           <NavigationProperty Name="Supplier" Relationship="PustakalayModel.FK_PurchaseDetails_Suppliers" FromRole="PurchaseDetail" ToRole="Supplier" />
-          <Property Type="Guid" Name="tmpid" Nullable="false" />
         </EntityType>
         <EntityType Name="Purchase">
           <Key>
@@ -296,10 +296,10 @@
           <EntitySetMapping Name="PurchaseDetails">
             <EntityTypeMapping TypeName="PustakalayModel.PurchaseDetail">
               <MappingFragment StoreEntitySet="PurchaseDetails">
-                <ScalarProperty Name="tmpid" ColumnName="tmpid" />
                 <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
                 <ScalarProperty Name="BookId" ColumnName="BookId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="tmpid" ColumnName="tmpid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -339,32 +339,38 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram Name="PustakalayModel" >
-        <EntityTypeShape EntityType="PustakalayModel.BookInfo" Width="1.5" PointX="0.875" PointY="1.125" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="PustakalayModel.Book" Width="1.5" PointX="3" PointY="0.875" Height="2.1725878906249996" />
-        <EntityTypeShape EntityType="PustakalayModel.PurchaseDetail" Width="1.5" PointX="5.25" PointY="0.875" Height="2.364889322916667" />
-        <EntityTypeShape EntityType="PustakalayModel.Purchase" Width="1.5" PointX="6.75" PointY="3.375" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="PustakalayModel.Supplier" Width="1.5" PointX="8.375" PointY="1" Height="1.4033821614583317" />
+        <EntityTypeShape EntityType="PustakalayModel.BookInfo" Width="1.5" PointX="0.75" PointY="5.25" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="PustakalayModel.Book" Width="1.5" PointX="3" PointY="1" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="PustakalayModel.PurchaseDetail" Width="1.5" PointX="5.25" PointY="1" Height="2.3648893229166656" />
+        <EntityTypeShape EntityType="PustakalayModel.Purchase" Width="1.5" PointX="0.75" PointY="1.25" Height="1.7879850260416657" />
+        <EntityTypeShape EntityType="PustakalayModel.Supplier" Width="1.5" PointX="3" PointY="5.375" Height="1.4033821614583335" />
         <AssociationConnector Association="PustakalayModel.FK_BookInfoBook" >
-          <ConnectorPoint PointX="2.375" PointY="2.0189925130208337" />
-          <ConnectorPoint PointX="3" PointY="2.0189925130208337" />
+          <ConnectorPoint PointX="2.25" PointY="5.25" />
+          <ConnectorPoint PointX="2.625" PointY="4.875" />
+          <ConnectorPoint PointX="2.625" PointY="2.0862939453125" />
+          <ConnectorPoint PointX="3" PointY="2.0862939453125" />
         </AssociationConnector>
         <AssociationConnector Association="PustakalayModel.FK_Books_Purchases" >
-          <ConnectorPoint PointX="6.75" PointY="4.2689925130208337" />
-          <ConnectorPoint PointX="4.1562525" PointY="4.2689925130208337" />
-          <ConnectorPoint PointX="4.1562525" PointY="3.0475878906249996" />
+          <ConnectorPoint PointX="2.25" PointY="2.6246394856770827" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="2.6246394856770823" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="2.6246394856770827" />
+          <ConnectorPoint PointX="3" PointY="2.6246394856770827" />
         </AssociationConnector>
         <AssociationConnector Association="PustakalayModel.FK_PurchaseDetails_Books" >
-          <ConnectorPoint PointX="4.5" PointY="1.9612939453124998" />
-          <ConnectorPoint PointX="5.25" PointY="1.9612939453124998" />
+          <ConnectorPoint PointX="4.5" PointY="2.0862939453125" />
+          <ConnectorPoint PointX="5.25" PointY="2.0862939453125" />
         </AssociationConnector>
         <AssociationConnector Association="PustakalayModel.FK_PurchaseDetails_Purchases" >
-          <ConnectorPoint PointX="7.5000005000000005" PointY="3.375" />
-          <ConnectorPoint PointX="7.5000005000000005" PointY="2.4707897018229166" />
-          <ConnectorPoint PointX="6.75" PointY="2.4707897018229166" />
+          <ConnectorPoint PointX="1.5" PointY="3.0379850260416656" />
+          <ConnectorPoint PointX="1.5" PointY="3.2999886067708326" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="3.2999886067708322" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="3.2999886067708326" />
+          <ConnectorPoint PointX="5.25" PointY="3.2999886067708326" />
         </AssociationConnector>
         <AssociationConnector Association="PustakalayModel.FK_PurchaseDetails_Suppliers" >
-          <ConnectorPoint PointX="8.375" PointY="1.7016910807291659" />
-          <ConnectorPoint PointX="6.75" PointY="1.7016910807291659" />
+          <ConnectorPoint PointX="4.5" PointY="6.0766910807291667" />
+          <ConnectorPoint PointX="6" PointY="6.0766910807291667" />
+          <ConnectorPoint PointX="6" PointY="3.3648893229166656" />
         </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>

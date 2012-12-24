@@ -8,12 +8,13 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -155,6 +156,7 @@ namespace Pustakalay.Data
         private ObjectSet<Supplier> _Suppliers;
 
         #endregion
+
         #region AddTo Methods
     
         /// <summary>
@@ -198,11 +200,11 @@ namespace Pustakalay.Data
         }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entities
     
     /// <summary>
@@ -229,6 +231,7 @@ namespace Pustakalay.Data
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -307,6 +310,7 @@ namespace Pustakalay.Data
         partial void OnPurchaseIdChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -409,6 +413,7 @@ namespace Pustakalay.Data
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -437,6 +442,7 @@ namespace Pustakalay.Data
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -515,6 +521,7 @@ namespace Pustakalay.Data
         partial void OnAuthorChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -541,6 +548,7 @@ namespace Pustakalay.Data
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -567,6 +575,7 @@ namespace Pustakalay.Data
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -621,6 +630,7 @@ namespace Pustakalay.Data
         partial void OnSupplierIdChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -669,6 +679,7 @@ namespace Pustakalay.Data
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -684,22 +695,50 @@ namespace Pustakalay.Data
         /// <summary>
         /// Create a new PurchaseDetail object.
         /// </summary>
+        /// <param name="tmpid">Initial value of the tmpid property.</param>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="bookId">Initial value of the BookId property.</param>
         /// <param name="supplierId">Initial value of the SupplierId property.</param>
-        /// <param name="tmpid">Initial value of the tmpid property.</param>
-        public static PurchaseDetail CreatePurchaseDetail(global::System.Guid id, global::System.Guid bookId, global::System.Guid supplierId, global::System.Guid tmpid)
+        public static PurchaseDetail CreatePurchaseDetail(global::System.Guid tmpid, global::System.Guid id, global::System.Guid bookId, global::System.Guid supplierId)
         {
             PurchaseDetail purchaseDetail = new PurchaseDetail();
+            purchaseDetail.tmpid = tmpid;
             purchaseDetail.Id = id;
             purchaseDetail.BookId = bookId;
             purchaseDetail.SupplierId = supplierId;
-            purchaseDetail.tmpid = tmpid;
             return purchaseDetail;
         }
 
         #endregion
+
         #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid tmpid
+        {
+            get
+            {
+                return _tmpid;
+            }
+            set
+            {
+                if (_tmpid != value)
+                {
+                    OntmpidChanging(value);
+                    ReportPropertyChanging("tmpid");
+                    _tmpid = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("tmpid");
+                    OntmpidChanged();
+                }
+            }
+        }
+        private global::System.Guid _tmpid;
+        partial void OntmpidChanging(global::System.Guid value);
+        partial void OntmpidChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -772,35 +811,9 @@ namespace Pustakalay.Data
         private global::System.Guid _SupplierId;
         partial void OnSupplierIdChanging(global::System.Guid value);
         partial void OnSupplierIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid tmpid
-        {
-            get
-            {
-                return _tmpid;
-            }
-            set
-            {
-                if (_tmpid != value)
-                {
-                    OntmpidChanging(value);
-                    ReportPropertyChanging("tmpid");
-                    _tmpid = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("tmpid");
-                    OntmpidChanged();
-                }
-            }
-        }
-        private global::System.Guid _tmpid;
-        partial void OntmpidChanging(global::System.Guid value);
-        partial void OntmpidChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -919,6 +932,7 @@ namespace Pustakalay.Data
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -943,6 +957,7 @@ namespace Pustakalay.Data
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -973,6 +988,7 @@ namespace Pustakalay.Data
         partial void OnIdChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -999,8 +1015,10 @@ namespace Pustakalay.Data
         }
 
         #endregion
+
     }
 
     #endregion
+
     
 }
