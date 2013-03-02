@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PustakalayModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="PustakalayModelStoreContainer">
+          <EntitySet Name="BookInfoes" EntityType="PustakalayModel.Store.BookInfoes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Books" EntityType="PustakalayModel.Store.Books" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PurchaseDetails" EntityType="PustakalayModel.Store.PurchaseDetails" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Purchases" EntityType="PustakalayModel.Store.Purchases" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Suppliers" EntityType="PustakalayModel.Store.Suppliers" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_BookInfoBook" Association="PustakalayModel.Store.FK_BookInfoBook">
+            <End Role="BookInfoes" EntitySet="BookInfoes" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Books_Purchases" Association="PustakalayModel.Store.FK_Books_Purchases">
+            <End Role="Purchases" EntitySet="Purchases" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseDetails_Books" Association="PustakalayModel.Store.FK_PurchaseDetails_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="PurchaseDetails" EntitySet="PurchaseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseDetails_Purchases" Association="PustakalayModel.Store.FK_PurchaseDetails_Purchases">
+            <End Role="Purchases" EntitySet="Purchases" />
+            <End Role="PurchaseDetails" EntitySet="PurchaseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseDetails_Suppliers" Association="PustakalayModel.Store.FK_PurchaseDetails_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="PurchaseDetails" EntitySet="PurchaseDetails" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BookInfoes">
+          <Key>
+            <PropertyRef Name="Isbn" />
+          </Key>
+          <Property Name="Isbn" Type="nchar" Nullable="false" MaxLength="13" />
+          <Property Name="Title" Type="varchar" Nullable="false" MaxLength="150" />
+          <Property Name="Author" Type="varchar" Nullable="false" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Books">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Isbn" Type="nchar" MaxLength="13" />
+          <Property Name="PurchaseId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PurchaseDetails">
+          <Key>
+            <PropertyRef Name="tmpid" />
+          </Key>
+          <Property Name="tmpid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BookId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SupplierId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Purchases">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SupplierId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BookInfoBook">
+          <End Role="BookInfoes" Type="PustakalayModel.Store.BookInfoes" Multiplicity="0..1" />
+          <End Role="Books" Type="PustakalayModel.Store.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookInfoes">
+              <PropertyRef Name="Isbn" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="Isbn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_Purchases">
+          <End Role="Purchases" Type="PustakalayModel.Store.Purchases" Multiplicity="1" />
+          <End Role="Books" Type="PustakalayModel.Store.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purchases">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="PurchaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseDetails_Books">
+          <End Role="Books" Type="PustakalayModel.Store.Books" Multiplicity="1" />
+          <End Role="PurchaseDetails" Type="PustakalayModel.Store.PurchaseDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PurchaseDetails">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseDetails_Purchases">
+          <End Role="Purchases" Type="PustakalayModel.Store.Purchases" Multiplicity="1" />
+          <End Role="PurchaseDetails" Type="PustakalayModel.Store.PurchaseDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purchases">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PurchaseDetails">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseDetails_Suppliers">
+          <End Role="Suppliers" Type="PustakalayModel.Store.Suppliers" Multiplicity="1" />
+          <End Role="PurchaseDetails" Type="PustakalayModel.Store.PurchaseDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PurchaseDetails">
+              <PropertyRef Name="SupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="PustakalayModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="PustakalayModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BookInfoes" EntityType="PustakalayModel.BookInfo" />
+          <EntitySet Name="Books" EntityType="PustakalayModel.Book" />
+          <EntitySet Name="PurchaseDetails" EntityType="PustakalayModel.PurchaseDetail" />
+          <EntitySet Name="Purchases" EntityType="PustakalayModel.Purchase" />
+          <EntitySet Name="Suppliers" EntityType="PustakalayModel.Supplier" />
+          <AssociationSet Name="FK_BookInfoBook" Association="PustakalayModel.FK_BookInfoBook">
+            <End Role="BookInfo" EntitySet="BookInfoes" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Books_Purchases" Association="PustakalayModel.FK_Books_Purchases">
+            <End Role="Purchase" EntitySet="Purchases" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseDetails_Books" Association="PustakalayModel.FK_PurchaseDetails_Books">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="PurchaseDetail" EntitySet="PurchaseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseDetails_Purchases" Association="PustakalayModel.FK_PurchaseDetails_Purchases">
+            <End Role="Purchase" EntitySet="Purchases" />
+            <End Role="PurchaseDetail" EntitySet="PurchaseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseDetails_Suppliers" Association="PustakalayModel.FK_PurchaseDetails_Suppliers">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="PurchaseDetail" EntitySet="PurchaseDetails" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BookInfo">
+          <Key>
+            <PropertyRef Name="Isbn" />
+          </Key>
+          <Property Type="String" Name="Isbn" Nullable="false" MaxLength="13" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Author" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Books" Relationship="PustakalayModel.FK_BookInfoBook" FromRole="BookInfo" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Isbn" MaxLength="13" FixedLength="true" Unicode="true" />
+          <Property Type="Guid" Name="PurchaseId" Nullable="false" />
+          <NavigationProperty Name="BookInfo" Relationship="PustakalayModel.FK_BookInfoBook" FromRole="Book" ToRole="BookInfo" />
+          <NavigationProperty Name="Purchase" Relationship="PustakalayModel.FK_Books_Purchases" FromRole="Book" ToRole="Purchase" />
+          <NavigationProperty Name="PurchaseDetails" Relationship="PustakalayModel.FK_PurchaseDetails_Books" FromRole="Book" ToRole="PurchaseDetail" />
+        </EntityType>
+        <EntityType Name="PurchaseDetail">
+          <Key>
+            <PropertyRef Name="tmpid" />
+          </Key>
+          <Property Type="Guid" Name="tmpid" Nullable="false" />
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="BookId" Nullable="false" />
+          <Property Type="Guid" Name="SupplierId" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="PustakalayModel.FK_PurchaseDetails_Books" FromRole="PurchaseDetail" ToRole="Book" />
+          <NavigationProperty Name="Purchase" Relationship="PustakalayModel.FK_PurchaseDetails_Purchases" FromRole="PurchaseDetail" ToRole="Purchase" />
+          <NavigationProperty Name="Supplier" Relationship="PustakalayModel.FK_PurchaseDetails_Suppliers" FromRole="PurchaseDetail" ToRole="Supplier" />
+        </EntityType>
+        <EntityType Name="Purchase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="SupplierId" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="PustakalayModel.FK_Books_Purchases" FromRole="Purchase" ToRole="Book" />
+          <NavigationProperty Name="PurchaseDetails" Relationship="PustakalayModel.FK_PurchaseDetails_Purchases" FromRole="Purchase" ToRole="PurchaseDetail" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <NavigationProperty Name="PurchaseDetails" Relationship="PustakalayModel.FK_PurchaseDetails_Suppliers" FromRole="Supplier" ToRole="PurchaseDetail" />
+        </EntityType>
+        <Association Name="FK_BookInfoBook">
+          <End Type="PustakalayModel.BookInfo" Role="BookInfo" Multiplicity="0..1" />
+          <End Type="PustakalayModel.Book" Role="Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookInfo">
+              <PropertyRef Name="Isbn" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="Isbn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_Purchases">
+          <End Type="PustakalayModel.Purchase" Role="Purchase" Multiplicity="1" />
+          <End Type="PustakalayModel.Book" Role="Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purchase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="PurchaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseDetails_Books">
+          <End Type="PustakalayModel.Book" Role="Book" Multiplicity="1" />
+          <End Type="PustakalayModel.PurchaseDetail" Role="PurchaseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PurchaseDetail">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseDetails_Purchases">
+          <End Type="PustakalayModel.Purchase" Role="Purchase" Multiplicity="1" />
+          <End Type="PustakalayModel.PurchaseDetail" Role="PurchaseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purchase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PurchaseDetail">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseDetails_Suppliers">
+          <End Type="PustakalayModel.Supplier" Role="Supplier" Multiplicity="1" />
+          <End Type="PustakalayModel.PurchaseDetail" Role="PurchaseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PurchaseDetail">
+              <PropertyRef Name="SupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PustakalayModelStoreContainer" CdmEntityContainer="PustakalayModelContainer">
+          <EntitySetMapping Name="BookInfoes">
+            <EntityTypeMapping TypeName="PustakalayModel.BookInfo">
+              <MappingFragment StoreEntitySet="BookInfoes">
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Isbn" ColumnName="Isbn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="PustakalayModel.Book">
+              <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="PurchaseId" ColumnName="PurchaseId" />
+                <ScalarProperty Name="Isbn" ColumnName="Isbn" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseDetails">
+            <EntityTypeMapping TypeName="PustakalayModel.PurchaseDetail">
+              <MappingFragment StoreEntitySet="PurchaseDetails">
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="tmpid" ColumnName="tmpid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchases">
+            <EntityTypeMapping TypeName="PustakalayModel.Purchase">
+              <MappingFragment StoreEntitySet="Purchases">
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="PustakalayModel.Supplier">
+              <MappingFragment StoreEntitySet="Suppliers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Default" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="PustakalayModel" >
+        <EntityTypeShape EntityType="PustakalayModel.BookInfo" Width="1.5" PointX="0.75" PointY="5.25" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="PustakalayModel.Book" Width="1.5" PointX="3" PointY="1" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="PustakalayModel.PurchaseDetail" Width="1.5" PointX="5.25" PointY="1" Height="2.3648893229166656" />
+        <EntityTypeShape EntityType="PustakalayModel.Purchase" Width="1.5" PointX="0.75" PointY="1.25" Height="1.7879850260416657" />
+        <EntityTypeShape EntityType="PustakalayModel.Supplier" Width="1.5" PointX="3" PointY="5.375" Height="1.4033821614583335" />
+        <AssociationConnector Association="PustakalayModel.FK_BookInfoBook" >
+          <ConnectorPoint PointX="2.25" PointY="5.25" />
+          <ConnectorPoint PointX="2.625" PointY="4.875" />
+          <ConnectorPoint PointX="2.625" PointY="2.0862939453125" />
+          <ConnectorPoint PointX="3" PointY="2.0862939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="PustakalayModel.FK_Books_Purchases" >
+          <ConnectorPoint PointX="2.25" PointY="2.6246394856770827" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="2.6246394856770823" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="2.6246394856770827" />
+          <ConnectorPoint PointX="3" PointY="2.6246394856770827" />
+        </AssociationConnector>
+        <AssociationConnector Association="PustakalayModel.FK_PurchaseDetails_Books" >
+          <ConnectorPoint PointX="4.5" PointY="2.0862939453125" />
+          <ConnectorPoint PointX="5.25" PointY="2.0862939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="PustakalayModel.FK_PurchaseDetails_Purchases" >
+          <ConnectorPoint PointX="1.5" PointY="3.0379850260416656" />
+          <ConnectorPoint PointX="1.5" PointY="3.2999886067708326" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="3.2999886067708322" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="3.2999886067708326" />
+          <ConnectorPoint PointX="5.25" PointY="3.2999886067708326" />
+        </AssociationConnector>
+        <AssociationConnector Association="PustakalayModel.FK_PurchaseDetails_Suppliers" >
+          <ConnectorPoint PointX="4.5" PointY="6.0766910807291667" />
+          <ConnectorPoint PointX="6" PointY="6.0766910807291667" />
+          <ConnectorPoint PointX="6" PointY="3.3648893229166656" />
+        </AssociationConnector>
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

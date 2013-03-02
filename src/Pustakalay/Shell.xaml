@@ -1,0 +1,25 @@
+﻿<Window x:Class="Pustakalay.Shell"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:Infrastructure="clr-namespace:Pustakalay.Infrastructure;assembly=Pustakalay.Infrastructure" 
+        xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism" 
+        Title="Pustakalay"  SizeToContent="WidthAndHeight"  mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="300" >
+    <!--<Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ContentControl  prism:RegionManager.RegionName="{x:Static Infrastructure:RegionNames.ToolbarRegion}" Grid.ColumnSpan="2" />
+        <ContentControl  prism:RegionManager.RegionName="{x:Static Infrastructure:RegionNames.ContentRegion}" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+        <ContentControl  prism:RegionManager.RegionName="{x:Static Infrastructure:RegionNames.NavigationRegion}" Grid.Row="1" />
+        <ContentControl  prism:RegionManager.RegionName="{x:Static Infrastructure:RegionNames.StatusbarRegion}"  Grid.Row="2" Grid.ColumnSpan="2" />
+    </Grid>-->
+    <ContentControl  prism:RegionManager.RegionName="{x:Static Infrastructure:RegionNames.ContentRegion}" />
+</Window>
