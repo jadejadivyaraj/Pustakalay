@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Practices.Prism.Commands;
+﻿using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.Prism.Regions;
 using Pustakalay.Infrastructure;
 
 namespace Pustakalay.LayoutModule.ViewModels
 {
     public class HomeViewModel : ViewModelBase,IHomeViewModel
     {
-        private IRegionManager _regionManager;
+       // private IRegionManager _regionManager;
 
-        private IEventAggregator _aggregator;
+        private readonly IEventAggregator _aggregator;
 
         public HomeViewModel(IEventAggregator aggregator)
         {
             _aggregator = aggregator;
             BooksCommand = new DelegateCommand(OnBooksCommand, CanBooksCommandExecute);
             InventoryCommand = new DelegateCommand(OnInventoryCommand,CanInventoryCommandExecute);
+            MembersCommand = new DelegateCommand(OnMembersCommand, CanMembersCommandExecute);
             //NavigateCommand = new DelegateCommand<object>(OnNavigateCommand);
             //ApplicationCommands.NavagationCommand.RegisterCommand(NavigateCommand);
         }
@@ -34,6 +30,8 @@ namespace Pustakalay.LayoutModule.ViewModels
         //        _regionManager.RequestNavigate(RegionNames.ContentRegion,navigatePath.ToString());
         //}
 
+        #region BooksCommand
+        
         public DelegateCommand BooksCommand { get; set; }
 
         private bool CanBooksCommandExecute()
@@ -46,6 +44,10 @@ namespace Pustakalay.LayoutModule.ViewModels
             _aggregator.GetEvent<LayoutChangeEvent>().Publish(LayoutTypes.BooksLayout);
         }
 
+        #endregion BooksCommand
+
+        #region InventoryCommand
+        
         public DelegateCommand InventoryCommand { get; set; }
 
         private bool CanInventoryCommandExecute()
@@ -55,8 +57,25 @@ namespace Pustakalay.LayoutModule.ViewModels
 
         private void OnInventoryCommand()
         {
-            _aggregator.GetEvent<LayoutChangeEvent>().Publish(LayoutTypes.PurchaseBooks);
+            _aggregator.GetEvent<LayoutChangeEvent>().Publish(LayoutTypes.InventoryLayout);
         }
 
+        #endregion InventoryCommand
+
+        #region MembersCommand
+
+        public DelegateCommand MembersCommand { get; set; }
+
+        private bool CanMembersCommandExecute()
+        {
+            return true;
+        }
+
+        private void OnMembersCommand()
+        {
+            _aggregator.GetEvent<LayoutChangeEvent>().Publish(LayoutTypes.MembersLayout);
+        }
+
+        #endregion MembersCommand
     }
 }

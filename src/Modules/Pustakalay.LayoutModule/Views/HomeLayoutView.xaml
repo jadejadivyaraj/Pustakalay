@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d"  d:DesignWidth="640" d:DesignHeight="480" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
     <UserControl.Resources>
-            <LinearGradientBrush x:Key="cyanbrsh" EndPoint="0.5,1" StartPoint="0.5,0">
+            <LinearGradientBrush x:Key="Cyanbrsh" EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FF94C5DE" Offset="0" />
                 <GradientStop Color="Aquamarine" Offset="1" />
             </LinearGradientBrush>
@@ -34,9 +34,9 @@
                 </LinearGradientBrush>
             </Rectangle.OpacityMask>
         </Rectangle>
-        <Button Background="{StaticResource cyanbrsh }" Content="Members" Height="80" HorizontalAlignment="Left" Margin="50,0,0,25" Name="button2" VerticalAlignment="Bottom" Width="150" Grid.Column="1" />
-        <Button Background="{StaticResource cyanbrsh }" Content="Misc" Height="80" HorizontalAlignment="Left" Margin="50,25,0,0" Name="button5" VerticalAlignment="Top" Width="150" Grid.Column="1" Grid.Row="1" />
-        <Button Background="{StaticResource cyanbrsh }" Content="Books" Height="80" HorizontalAlignment="Right" Margin="0,0,50,25" Name="button1" VerticalAlignment="Bottom" Width="150" />
-        <Button Background="{StaticResource cyanbrsh }" Content="Finance" Height="80"  HorizontalAlignment="Right" Margin="0,25,50,0" Name="button3" VerticalAlignment="Top"  Width="150"  Grid.Row="1" />
+        <Button Background="{StaticResource Cyanbrsh }" Content="Members" Height="80" HorizontalAlignment="Left" Margin="50,0,0,25" Name="Button2" VerticalAlignment="Bottom" Width="150" Grid.Column="1" />
+        <Button Background="{StaticResource Cyanbrsh }" Content="Misc" Height="80" HorizontalAlignment="Left" Margin="50,25,0,0" Name="Button5" VerticalAlignment="Top" Width="150" Grid.Column="1" Grid.Row="1" />
+        <Button Background="{StaticResource Cyanbrsh }" Content="Books" Height="80" HorizontalAlignment="Right" Margin="0,0,50,25" Name="Button1" VerticalAlignment="Bottom" Width="150" />
+        <Button Background="{StaticResource Cyanbrsh }" Content="Finance" Height="80"  HorizontalAlignment="Right" Margin="0,25,50,0" Name="Button3" VerticalAlignment="Top"  Width="150"  Grid.Row="1" />
          </Grid>
 </UserControl>

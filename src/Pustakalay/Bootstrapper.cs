@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
@@ -21,30 +20,35 @@ namespace Pustakalay
         }
 
 
-        protected override void ConfigureModuleCatalog()
+        protected override IModuleCatalog CreateModuleCatalog()
         {
-            Type layoutModuleType = typeof(LayoutModule.LayoutModule);
-            ModuleCatalog.AddModule(new ModuleInfo()
-                                        {
-                                            ModuleName = layoutModuleType.Name,
-                                            ModuleType = layoutModuleType.AssemblyQualifiedName,
-                                            InitializationMode = InitializationMode.WhenAvailable
-                                        });
-            Type booksModuleType = typeof(BooksModule.BooksModule);
-                                        ModuleCatalog.AddModule(new ModuleInfo()
-                                        {
-                                            ModuleName = booksModuleType.Name,
-                                            ModuleType = booksModuleType.AssemblyQualifiedName,
-                                            InitializationMode = InitializationMode.WhenAvailable
-                                        });
-            Type inventoryModuleType = typeof(Inventory.InventoryModule);
-                                        ModuleCatalog.AddModule(new ModuleInfo()
-                                        {
-                                            ModuleName = inventoryModuleType.Name,
-                                            ModuleType = inventoryModuleType.AssemblyQualifiedName,
-                                            InitializationMode = InitializationMode.WhenAvailable
-                                        });
-
+            return new ConfigurationModuleCatalog();
         }
+
+        //protected override void ConfigureModuleCatalog()
+        //{
+            //Type layoutModuleType = typeof(LayoutModule.LayoutModule);
+            //ModuleCatalog.AddModule(new ModuleInfo()
+            //                            {
+            //                                ModuleName = layoutModuleType.Name,
+            //                                ModuleType = layoutModuleType.AssemblyQualifiedName,
+            //                                InitializationMode = InitializationMode.WhenAvailable
+            //                            });
+            //Type booksModuleType = typeof(Pustakalay);
+            //                            ModuleCatalog.AddModule(new ModuleInfo()
+            //                            {
+            //                                ModuleName = booksModuleType.Name,
+            //                                ModuleType = booksModuleType.AssemblyQualifiedName,
+            //                                InitializationMode = InitializationMode.WhenAvailable
+            //                            });
+            //Type inventoryModuleType = typeof(Inventory.InventoryModule);
+            //                            ModuleCatalog.AddModule(new ModuleInfo()
+            //                            {
+            //                                ModuleName = inventoryModuleType.Name,
+            //                                ModuleType = inventoryModuleType.AssemblyQualifiedName,
+            //                                InitializationMode = InitializationMode.WhenAvailable
+            //                            });
+
+        //}
     }
 }

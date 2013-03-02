@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="Pustakalay.InventoryModule.Views.InventoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignMinHeight="300" d:DesignMinWidth="300">
+    
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid DataContext="{Binding Purchases}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+                <Label Margin="5,5,5,5" Content="Purchase ID" Grid.Row="1" />
+                <TextBox Margin="5,5,5,5" MinWidth="200" IsEnabled="False" Text="{Binding Id}" Grid.Column="1" Grid.Row="1" />
+            <Label Margin="5,5,5,5" Content="Purchase Date" Grid.Row="2" />
+            <TextBox Margin="5,5,5,5" MinWidth="200" IsEnabled="False" Text="{Binding Date}" Grid.Column="1"  Grid.Row="2"/>
+            <Label  Margin="5,5,5,5" Content="# of Books" Grid.Row="3" />
+            <TextBox Margin="5,5,5,5" MinWidth="200" IsEnabled="False" Text="{Binding /PurchaseItems.Books.Count, Mode=OneWay}" Grid.Column="1"  Grid.Row="3"/>
+                <DataGrid IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding }" Grid.ColumnSpan="2" AutoGenerateColumns="False" Margin="5,5,5,5"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.IsSharedSizeScope="True" Padding="5" MaxHeight="150">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id"  Binding="{Binding Id}" Width="Auto" />
+                        <DataGridTextColumn Header="Date"  Binding="{Binding Date}" Width="Auto" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <Grid Column="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center" >
+                    <Button Content="|&lt;"  MinWidth="50" Margin="5,5,5,5" Click="MoveFirst" />
+                    <Button Content="&lt;"  MinWidth="50" Margin="5,5,5,5" Click="MovePrev" />
+                    <Button Content="&gt;"  MinWidth="50" Margin="5,5,5,5" Click="MoveNext" />
+                    <Button Content="&gt;|"  MinWidth="50" Margin="5,5,5,5" Click="MoveLast" />
+                </StackPanel>
+            <Grid Grid.Row="1" DataContext="{Binding Books }"  MinHeight="200" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <Label Content="Isbn" Margin="5,5,5,5" VerticalAlignment="Top" MinWidth="50" Grid.Row="1" />
+                    <Label Content="Title" Margin="5,5,5,5" VerticalAlignment="Top" MinWidth="50" Grid.Row="2" />
+                    <Label Content="Author" Margin="5,5,5,5" VerticalAlignment="Top" MinWidth="50" Grid.Row="3" />
+                    <Label Content="Publisher" Margin="5,5,5,5" VerticalAlignment="Top" MinWidth="50" Grid.Row="4"/>
+                    <Label Content="Purchase Cost" Margin="5,5,5,5" VerticalAlignment="Top" MinWidth="50" Grid.Row="5"/>
+                    <TextBox Margin="5,5,5,5" MinWidth="200" Grid.Column="1" Grid.Row="1" Text="{Binding Isbn}" IsEnabled="{Binding IsChecked, ElementName=Edit}"/>
+                    <TextBox Margin="5,5,5,5" MinWidth="200" Grid.Column="1" Grid.Row="2" Text="{Binding Details.Title}" IsEnabled="{Binding IsChecked, ElementName=Edit}"/>
+                    <ItemsControl Margin="5,5,5,5" MinWidth="200" Grid.Column="1" Grid.Row="3">
+                        <TextBox  Margin="0,5,0,5" MinWidth="200"  Text="{Binding Details.Author.FirstName}"  IsEnabled="{Binding IsChecked, ElementName=Edit}" HorizontalAlignment="Stretch" />
+                        <TextBox Margin="0,5,0,5" MinWidth="200"  Text="{Binding Details.Author.LastName}"  IsEnabled="{Binding IsChecked, ElementName=Edit}" HorizontalAlignment="Stretch" />
+                    </ItemsControl>
+                    <!--<TextBox.Text>
+                    <MultiBinding StringFormat="{}{1} , {0}">
+                        <Binding Path="Details.Author.FirstName" />
+                        <Binding Path="Details.Author.LastName" />
+                    </MultiBinding>
+                </TextBox.Text>-->
+
+                    <!--<ComboBox Margin="5,5,5,5" MinWidth="200" Grid.Column="1" Grid.Row="3" ItemsSource="{Binding } " Text="{Binding Details.Author.FirstName}" IsEnabled="{Binding IsChecked, ElementName=Edit}"/>-->
+                    <TextBox Margin="5,5,5,5" MinWidth="200" Grid.Column="1" Grid.Row="4" Text="{Binding Details.Publisher.Name}" IsEnabled="{Binding IsChecked, ElementName=Edit}" />
+                    <TextBox Margin="5,5,5,5" MinWidth="200" Grid.Column="1" Grid.Row="5" Text="{Binding Price}" IsEnabled="{Binding IsChecked, ElementName=Edit}" />
+                </Grid>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="Add"  MinWidth="50" Margin="5,5,5,5" Command="{Binding AddCommand}"/>
+                    <ToggleButton Name="Edit"  Content="Edit"  MinWidth="50" Margin="5,5,5,5"/>
+                    <Button Content="Delete"  MinWidth="50" Margin="5,5,5,5"/>
+                    <Button Content="Save"  MinWidth="50" Margin="5,5,5,5" Command="{Binding SaveCommand}" />
+                </StackPanel>
+
+            </Grid>
+        </Grid>
+        
+       
+        
+    
+</UserControl>

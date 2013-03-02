@@ -11,9 +11,10 @@ namespace Pustakalay.BooksModule
 {
     public class BooksModule:IModule
     {
-        private IUnityContainer _container;
-        private IRegionManager _regionManager;
-        private IEventAggregator _aggregator;
+        private readonly IUnityContainer _container;
+        private readonly IRegionManager _regionManager;
+        private readonly IEventAggregator _aggregator;
+
         public BooksModule(IUnityContainer container, IRegionManager regionManager, IEventAggregator aggregator)
         {
             _container = container;
@@ -21,12 +22,11 @@ namespace Pustakalay.BooksModule
             _regionManager = regionManager;
         }
 
-
         public void Initialize()
         {
             _container.RegisterType<object, MainContentView>(typeof(MainContentView).FullName);
             _container.RegisterType<IMainContentViewModel, MainContentViewModel>();
-            _aggregator.GetEvent<LayoutChangeEvent>().Subscribe(OnLayoutChangeRequest);
+            _aggregator.GetEvent<LayoutChangeEvent>().Subscribe(OnLayoutChangeRequest,true);
         }
 
         private void OnLayoutChangeRequest(string obj)

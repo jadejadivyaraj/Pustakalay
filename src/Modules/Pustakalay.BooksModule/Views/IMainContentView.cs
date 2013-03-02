@@ -1,6 +1,4 @@
-﻿using Pustakalay.Data;
-using System.Collections.Generic;
-using Pustakalay.Infrastructure;
+﻿using Pustakalay.Infrastructure;
 
 namespace Pustakalay.BooksModule.Views
 {

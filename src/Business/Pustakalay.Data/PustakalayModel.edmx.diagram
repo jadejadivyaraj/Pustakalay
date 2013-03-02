@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ace17e82ad9d49beb2446b5f6f300f53" Name="Diagram1" ZoomLevel="114" >
+        <EntityTypeShape EntityType="PustakalayModel.BookInfo" Width="1.5" PointX="1.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PustakalayModel.Book" Width="1.5" PointX="3.875" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="PustakalayModel.BookBookInfo" />
+        <EntityTypeShape EntityType="PustakalayModel.Purchase" Width="1.5" PointX="10.375" PointY="0.875" />
+        <EntityTypeShape EntityType="PustakalayModel.PurchaseItems" Width="1.5" PointX="8.375" PointY="1" />
+        <AssociationConnector Association="PustakalayModel.PurchasePurchaseItems" />
+        <AssociationConnector Association="PustakalayModel.BookPurchaseItems" />
+        <EntityTypeShape EntityType="PustakalayModel.Author" Width="1.5" PointX="1.25" PointY="3.75" />
+        <AssociationConnector Association="PustakalayModel.BookInfoAuthor" />
+        <EntityTypeShape EntityType="PustakalayModel.Publisher" Width="1.5" PointX="3.75" PointY="3.875" />
+        <AssociationConnector Association="PustakalayModel.BookInfoPublisher" />
+        <EntityTypeShape EntityType="PustakalayModel.Member" Width="1.5" PointX="10.25" PointY="3.125" />
+        <EntityTypeShape EntityType="PustakalayModel.Lend" Width="1.5" PointX="6.75" PointY="2" />
+        <AssociationConnector Association="PustakalayModel.BookLend" />
+        <AssociationConnector Association="PustakalayModel.LendMember" />
+        <EntityTypeShape EntityType="PustakalayModel.RentalLend" Width="1.5" PointX="5.875" PointY="4.25" />
+        <InheritanceConnector EntityType="PustakalayModel.RentalLend" />
+        <EntityTypeShape EntityType="PustakalayModel.NonRentalLend" Width="1.5" PointX="8.375" PointY="4.25" />
+        <InheritanceConnector EntityType="PustakalayModel.NonRentalLend" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

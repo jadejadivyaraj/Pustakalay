@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Pustakalay.Infrastructure;
+﻿using Pustakalay.Infrastructure;
 
 namespace Pustakalay.LayoutModule.Views
 {

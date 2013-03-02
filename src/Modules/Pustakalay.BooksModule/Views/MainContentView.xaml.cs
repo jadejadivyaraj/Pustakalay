@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using Pustakalay.BooksModule.ViewModels;
 using Pustakalay.Infrastructure;
 
@@ -19,9 +7,8 @@ namespace Pustakalay.BooksModule.Views
     /// <summary>
     /// Interaction logic for MainContentView.xaml
     /// </summary>
-    public partial class MainContentView : UserControl,IMainContentView
+    public partial class MainContentView : IMainContentView
     {
-        
         public MainContentView(IMainContentViewModel viewModel)
         {
             InitializeComponent();
@@ -34,9 +21,37 @@ namespace Pustakalay.BooksModule.Views
             set { DataContext = value; }
         }
 
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-            
-        //}
+        private void MovePrev(object sender, RoutedEventArgs e)
+        {
+            var avm = ViewModel as IMainContentViewModel;
+            if (avm != null)
+            {
+                avm.Books.MoveCurrentToPrevious();
+                if (avm.Books.IsCurrentBeforeFirst)
+                    avm.Books.MoveCurrentToFirst();
+            }
+        }
+        private void MoveNext(object sender, RoutedEventArgs e)
+        {
+            var avm = ViewModel as IMainContentViewModel;
+
+            if (avm != null)
+            {
+                avm.Books.MoveCurrentToNext();
+                if (avm.Books.IsCurrentAfterLast)
+                    avm.Books.MoveCurrentToLast();
+            }
+        }
+        private void MoveFirst(object sender, RoutedEventArgs e)
+        {
+            var avm = ViewModel as IMainContentViewModel;
+            if (avm != null) avm.Books.MoveCurrentToFirst();
+        }
+
+        private void MoveLast(object sender, RoutedEventArgs e)
+        {
+            var avm = ViewModel as IMainContentViewModel;
+            if (avm != null) avm.Books.MoveCurrentToLast();
+        }
     }
 }

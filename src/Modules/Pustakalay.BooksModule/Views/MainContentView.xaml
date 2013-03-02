@@ -5,39 +5,39 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignMinHeight="300" d:DesignMinWidth="300">
-    <Grid DataContext="{Binding Books}">
+    <StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" >
+            <Button Content="|&lt;"  MinWidth="50" Margin="5,5,5,5" Click="MoveFirst" />
+            <Button Content="&lt;"  MinWidth="50" Margin="5,5,5,5" Click="MovePrev" />
+            <Button Content="&gt;"  MinWidth="50" Margin="5,5,5,5" Click="MoveNext" />
+            <Button Content="&gt;|"  MinWidth="50" Margin="5,5,5,5" Click="MoveLast" />
+        </StackPanel>
+        <Grid DataContext="{Binding Books}" >
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="1" Orientation="Horizontal"  >
-            <Button Content="|&lt;"  MinWidth="50" Margin="5,5,5,5"/>
-            <Button Content="&lt;"  MinWidth="50" Margin="5,5,5,5"/>
-            <Button Content="&gt;"  MinWidth="50" Margin="5,5,5,5"  />
-            <Button Content="&gt;|"  MinWidth="50" Margin="5,5,5,5"/>
-        </StackPanel>
-        <Label Content="Isbn" Margin="5,5,5,5" VerticalAlignment="Top" MinWidth="50" Grid.Row="2" />
-        <Label Content="Title" Margin="5,5,5,5" VerticalAlignment="Top" MinWidth="50" Grid.Row="3" />
-        <Label Content="Author" Margin="5,5,5,5" VerticalAlignment="Top" MinWidth="50" Grid.Row="4" />
-        <Label Content="Publisher" Margin="5,5,5,5" VerticalAlignment="Top" MinWidth="50" Grid.Row="5"/>
-        <TextBox Margin="5,5,5,5" MinWidth="200" Grid.Column="1" Grid.Row="2" Text="{Binding Isbn}"/>
-        <TextBox Margin="5,5,5,5" MinWidth="200" Grid.Column="1" Grid.Row="3" Text="{Binding BookInfo.Title}"/>
-        <TextBox Margin="5,5,5,5" MinWidth="200" Grid.Column="1" Grid.Row="4" Text="{Binding BookInfo.Author}"/>
-        <TextBox Margin="5,5,5,5" MinWidth="200" Grid.Column="1" Grid.Row="5" Text="{Binding BookInfo.Publisher}"/>
-        <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal" >
-            <Button Content="Add"  MinWidth="50" Margin="5,5,5,5"/>
-            <Button Content="Edit"  MinWidth="50" Margin="5,5,5,5"/>
-            <Button Content="Delete"  MinWidth="50" Margin="5,5,5,5"/>
-            <Button Content="Save"  MinWidth="50" Margin="5,5,5,5"/>
-        </StackPanel>
+        <Label Content="Isbn" Margin="5,5,5,5" VerticalAlignment="Top" MinWidth="50" Grid.Row="1" />
+        <Label Content="Title" Margin="5,5,5,5" VerticalAlignment="Top" MinWidth="50" Grid.Row="2" />
+        <Label Content="Author" Margin="5,5,5,5" VerticalAlignment="Top" MinWidth="50" Grid.Row="3" />
+        <Label Content="Publisher" Margin="5,5,5,5" VerticalAlignment="Top" MinWidth="50" Grid.Row="4"/>
+        <TextBox Margin="5,5,5,5" MinWidth="200" Grid.Column="1" Grid.Row="1" Text="{Binding Isbn}"/>
+        <TextBox Margin="5,5,5,5" MinWidth="200" Grid.Column="1" Grid.Row="2" Text="{Binding Details.Title}"/>
+        <TextBox Margin="5,5,5,5" MinWidth="200" Grid.Column="1" Grid.Row="3" Text="{Binding Details.Author.FirstName}"/>
+        <TextBox Margin="5,5,5,5" MinWidth="200" Grid.Column="1" Grid.Row="4" Text="{Binding Details.Publisher.Name}"/>
      </Grid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Add"  MinWidth="50" Margin="5,5,5,5" Command="{Binding AddCommand}"/>
+                <Button Content="Edit"  MinWidth="50" Margin="5,5,5,5"/>
+                <Button Content="Delete"  MinWidth="50" Margin="5,5,5,5"/>
+            <Button Content="Save"  MinWidth="50" Margin="5,5,5,5" Command="{Binding SaveCommand}" />
+            </StackPanel>
+    </StackPanel>
 </UserControl>
