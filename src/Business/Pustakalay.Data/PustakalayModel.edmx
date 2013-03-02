@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PustakalayModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PustakalayModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
   <EntityContainer Name="PustakalayModelStoreContainer">
     <EntitySet Name="BookInfoes" EntityType="PustakalayModel.Store.BookInfoes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Books" EntityType="PustakalayModel.Store.Books" store:Type="Tables" Schema="dbo" />
@@ -253,7 +253,7 @@
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="PustakalayModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+      <Schema Namespace="PustakalayModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
         <EntityContainer Name="PustakalayModelContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BookInfoes" EntityType="PustakalayModel.BookInfo" />
           <EntitySet Name="Books" EntityType="PustakalayModel.Book" />
@@ -338,7 +338,7 @@
           <Property Type="DateTime" Name="Date" Nullable="false" />
           <NavigationProperty Name="PurchaseItems" Relationship="PustakalayModel.PurchasePurchaseItems" FromRole="Purchase" ToRole="PurchaseItems" />
         </EntityType>
-        <EntityType Name="PurchaseItems" >
+        <EntityType Name="PurchaseItems">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -442,10 +442,10 @@
           </ReferentialConstraint>
         </Association>
         <EntityType Name="RentalLend" BaseType="PustakalayModel.Lend" />
-        <EntityType Name="NonRentalLend" BaseType="PustakalayModel.Lend" >
+        <EntityType Name="NonRentalLend" BaseType="PustakalayModel.Lend">
           <Property Type="Int32" Name="DepositAmount" Nullable="false" DefaultValue="0" />
         </EntityType>
-        <ComplexType Name="Address" >
+        <ComplexType Name="Address">
           <Property Type="String" Name="AddLine1" Nullable="false" FixedLength="false" MaxLength="200" Unicode="false" />
           <Property Type="String" Name="AddLine2" Nullable="false" FixedLength="false" MaxLength="200" Unicode="false" />
           <Property Type="String" Name="City" Nullable="false" FixedLength="false" MaxLength="50" Unicode="false" />
